@@ -8,6 +8,9 @@ const MODEL_ID = 'mujian2026/multilingual-ai-text-detector';
 
 env.allowLocalModels = false;
 env.useBrowserCache = true;
+// This model publishes a complete Transformers.js layout inside `q4/`
+// (config, tokenizer, and onnx), rather than at the repository root.
+env.remotePathTemplate = '{model}/resolve/{revision}/q4/';
 
 type PipelineOutput = Array<{ label: string; score: number }> | Array<Array<{ label: string; score: number }>>;
 type Detector = (text: string, options: { top_k: null; truncation: boolean; max_length: number }) => Promise<PipelineOutput>;
@@ -16,13 +19,12 @@ let detectorPromise: Promise<Detector> | null = null;
 
 function getDetector() {
   detectorPromise ??= pipeline('text-classification', MODEL_ID, {
-    subfolder: 'q4',
     dtype: 'q4',
     device: 'wasm',
     progress_callback: (progress: { status?: string; progress?: number; file?: string }) => {
       self.postMessage({ type: 'progress', progress: Math.round(progress.progress ?? 0), file: progress.file ?? '' });
     },
-  }) as Promise<Detector>;
+  }) as unknown as Promise<Detector>;
   return detectorPromise;
 }
 

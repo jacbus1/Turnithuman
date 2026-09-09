@@ -63,7 +63,7 @@ npm run build
 CI 不下載大型模型。發布前可選擇執行真實模型 smoke test：
 
 ```bash
-REAL_MODEL_TEST=1 npm run test:model
+npm run test:model
 ```
 
 ## 模型限制

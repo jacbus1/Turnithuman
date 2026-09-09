@@ -14,12 +14,12 @@
     "test": "vitest run --coverage",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
-    "test:model": "vitest run tests/model-smoke.test.ts",
+    "test:model": "vitest run --config vitest.model.config.ts",
     "format": "oxfmt"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",
-    "@huggingface/transformers": "^4.2.0",
+    "@huggingface/transformers": "^3.8.1",
     "@shadcn/react": "0.3.0",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
