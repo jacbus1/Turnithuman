@@ -16,7 +16,7 @@
 - 使用 [`mujian2026/multilingual-ai-text-detector`](https://huggingface.co/mujian2026/multilingual-ai-text-detector) 的 q4 ONNX 版本與 Transformers.js。
 - 首次使用約下載 181 MB 模型及 tokenizer；之後由瀏覽器快取。
 - 英文為主要支援；繁體／簡體中文及混合語言標示為實驗性。
-- 支援貼上文字，以及 TXT、MD、DOCX、文字型 PDF、PPTX（單檔 20 MB）。
+- 支援貼上文字，以及 TXT、MD、DOCX、文字型 PDF、PPTX（單檔 50 MB）。
 - 顯示逐段機率、分類、警告與只針對可讀性／個人表達的手動編輯建議。
 - 不自動「洗稿」，不承諾降低任何第三方偵測分數。
 
@@ -69,6 +69,8 @@ npm run test:model
 ## 模型限制
 
 模型卡報告的上游評估只涵蓋小型、同領域的英文、簡體中文與越南文資料，AI 範例主要來自 Qwen2.5-1.5B-Instruct。對其他模型、翻譯、改寫、較新生成器、專業領域與繁體中文的表現未獲建立。短文、條列、詩歌、程式碼與高度編輯內容尤其不可靠。
+
+發布前 sanity check 使用 HC3 的 5 組真人／AI 問答時得到 10/10 門檻分類，但對 5 段公版英文文學作品只把 1 段判為「較像人類」，其餘 4 段誤判為「疑似 AI」。這不是正式準確率評估，而是刻意保留的反例：模型在訓練領域內可能看似準確，換到文學或其他領域便可能嚴重失準。
 
 ## License
 

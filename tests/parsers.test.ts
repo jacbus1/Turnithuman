@@ -54,7 +54,7 @@ it('extracts selectable PDF text', async () => {
 
 it('rejects unsupported, oversized, and empty files', async () => {
   await expect(parseFile(asFile(['x'], 'sample.csv'))).rejects.toThrow('不支援');
-  const oversized = asFile([new Uint8Array(MAX_FILE_BYTES + 1)], 'large.txt');
-  await expect(parseFile(oversized)).rejects.toThrow('20 MB');
+  const oversized = { name: 'large.txt', size: MAX_FILE_BYTES + 1 } as File;
+  await expect(parseFile(oversized)).rejects.toThrow('50 MB');
   await expect(parseFile(asFile(['   '], 'empty.txt'))).rejects.toThrow('沒有可分析');
 });

@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 
-export const MAX_FILE_BYTES = 20 * 1024 * 1024;
+export const MAX_FILE_MB = 50;
+export const MAX_FILE_BYTES = MAX_FILE_MB * 1024 * 1024;
 
 export type SourceFormat = 'txt' | 'md' | 'docx' | 'pdf' | 'pptx';
 
@@ -62,7 +63,7 @@ function decodeXml(value: string): string {
 }
 
 export async function parseFile(file: File): Promise<ParsedDocument> {
-  if (file.size > MAX_FILE_BYTES) throw new Error('檔案超過 20 MB 上限。');
+  if (file.size > MAX_FILE_BYTES) throw new Error(`檔案超過 ${MAX_FILE_MB} MB 上限。`);
   const format = extension(file.name);
   if (!format) throw new Error('不支援此檔案格式。請使用 TXT、MD、DOCX、PDF 或 PPTX。');
   try {

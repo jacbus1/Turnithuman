@@ -27,7 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { buildWritingAdvice } from '@/lib/advice';
 import { prepareSegments, type AnalysisResult, type SegmentLabel } from '@/lib/analysis';
-import { parseFile } from '@/lib/parsers';
+import { MAX_FILE_MB, parseFile } from '@/lib/parsers';
 import { useDetector } from '@/lib/use-detector';
 
 type UiLanguage = 'zh' | 'en';
@@ -51,7 +51,7 @@ const copy = {
     signals: '段落訊號',
     advice: '自然寫作建議',
     caveat: '請把百分比當成線索',
-    caveatBody: '它不是 Turnitin 分數，也不能證明文字的作者身分。',
+    caveatBody: '它不是 Turnitin 分數，也不能證明文字的作者身分；文學、模板化及跨領域內容可能被誤判。',
     recheck: '重新分析修改稿',
   },
   en: {
@@ -72,7 +72,7 @@ const copy = {
     signals: 'Segment signals',
     advice: 'Writing advice',
     caveat: 'Treat the percentage as a signal',
-    caveatBody: 'It is not a Turnitin score and cannot prove who wrote a text.',
+    caveatBody: 'It is not a Turnitin score and cannot prove authorship; literary, formulaic, and out-of-domain writing may be misclassified.',
     recheck: 'Analyze edited draft',
   },
 } as const;
@@ -224,7 +224,7 @@ export default function Home() {
               </div>
               <Button className="h-11 bg-[#d3ff78] px-5 font-semibold text-[#173033] shadow-[0_8px_24px_rgba(108,150,43,.2)] hover:bg-[#c4f066]" onClick={handleAnalyze} disabled={busy || !text.trim()}>{busy ? <LoaderCircle className="animate-spin" /> : detector.result ? <RotateCcw /> : <Sparkles />}{detector.result ? t.recheck : t.analyze}</Button>
             </div>
-            <div className="mt-3 flex flex-wrap gap-4 text-xs text-[#7a8c8e]"><span>{characterCount.toLocaleString()} {t.characters}</span><span>{wordCount.toLocaleString()} {t.words}</span>{detector.result && text !== lastAnalyzedText ? <span className="font-semibold text-[#9a6a22]">{uiLanguage === 'zh' ? '修改尚未分析' : 'Edits not analyzed yet'}</span> : null}<span className="ml-auto">20 MB max</span></div>
+            <div className="mt-3 flex flex-wrap gap-4 text-xs text-[#7a8c8e]"><span>{characterCount.toLocaleString()} {t.characters}</span><span>{wordCount.toLocaleString()} {t.words}</span>{detector.result && text !== lastAnalyzedText ? <span className="font-semibold text-[#9a6a22]">{uiLanguage === 'zh' ? '修改尚未分析' : 'Edits not analyzed yet'}</span> : null}<span className="ml-auto">{MAX_FILE_MB} MB max</span></div>
           </div>
         </div>
 
