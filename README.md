@@ -10,7 +10,9 @@ A free, open-source AI writing signal detector that runs in your browser. Paste 
 
 [Try the app](https://jacbus1.github.io/Turnithuman/) · [Editable Figma design](https://www.figma.com/design/U4hf2OKjWQy1gHVjgKwsfi)
 
-![Turnithuman analysis workspace](public/turnithuman-analysis.png)
+![Turnithuman English analysis workspace](public/turnithuman-analysis-en.png)
+
+*English interface with sample text and simulated scores for illustration; not an accuracy benchmark.*
 
 ## Features
 
